@@ -20,7 +20,9 @@ ENV/
 # ---------------------------------------------------------------------------
 # Datasets (NOT tracked - see README "Dataset" section for download steps)
 # ---------------------------------------------------------------------------
-data/
+# Anchored to the repo root: a bare `data/` would also match the source
+# package `ml/data/`, silently dropping it from the repository.
+/data/
 *.zip
 *.wav
 *.flac
