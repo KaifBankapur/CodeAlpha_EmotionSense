@@ -249,7 +249,10 @@ class TestNoInformationLeakage:
 
         assert response.status_code == 503
         text = self._body_text(response)
-        assert "artifacts/models" not in text
+        # Match on "artifacts", not "artifacts/models": on Windows the path
+        # separator is a backslash, so the longer literal never matches and the
+        # leak goes unnoticed.
+        assert "artifacts" not in text
         assert "traceback" not in text
         # The user still gets something actionable.
         assert "train" in text

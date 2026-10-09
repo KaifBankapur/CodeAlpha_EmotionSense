@@ -429,7 +429,7 @@ def get_active_run_dir(explicit: Path | None = None) -> Path:
     if explicit is not None:
         run_dir = Path(explicit)
         if not (run_dir / "best_model.pt").is_file():
-            raise FileNotFoundError(f"No best_model.pt in '{run_dir}'.")
+            raise FileNotFoundError(f"No best_model.pt in run '{run_dir.name}'.")
         return run_dir
 
     if ACTIVE_MODEL_POINTER.is_file():

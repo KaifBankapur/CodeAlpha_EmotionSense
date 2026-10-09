@@ -132,7 +132,8 @@ class EmotionPredictor:
         checkpoint = run_dir / "best_model.pt"
         if not checkpoint.is_file():
             raise FileNotFoundError(
-                f"No 'best_model.pt' in '{run_dir}'. Train a model first: python scripts/train.py"
+                f"No 'best_model.pt' in run '{run_dir.name}'. "
+                "Train a model first: python scripts/train.py"
             )
 
         device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
