@@ -78,4 +78,7 @@ filterwarnings = [
 ]
 markers = [
     "slow: long-running checks (full-corpus feature extraction, etc.)",
+    # Needs the RAVDESS corpus and the ~203 MB feature cache, both gitignored.
+    # CI deselects these; run them locally after prepare_data.py.
+    "requires_cache: requires the local dataset feature cache",
 ]

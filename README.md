@@ -900,8 +900,11 @@ doing its job.
    room acoustics, no noise.
 7. **Latency p95 is 3.2 s** on a shared CPU. Batching, `torch.inference_mode()`
    around the forward pass, or simply a quieter machine would fix it.
-8. **Not deployed.** No container, no CI, no model registry. `Dockerfile` and a
-   GitHub Actions workflow running the test suite are the obvious next commits.
+8. **Not deployed.** No container and no model registry yet. A GitHub Actions
+   workflow (`.github/workflows/ci.yml`) runs `ruff` and the test suite on every
+   push and pull request; the checks that re-derive this document from the
+   corpus are skipped there, since the RAVDESS data is deliberately not
+   committed.
 
 ---
 
@@ -914,7 +917,8 @@ it is not cleared for commercial use without separate permission. The
 attribution and share-alike requirements apply to any redistribution of the
 dataset or of derivatives of it.
 
-**This code** is provided for educational and portfolio purposes.
+**This code** is released under the [MIT Licence](LICENSE) and is provided for
+educational and portfolio purposes.
 
 Third-party libraries retain their own licences — see `requirements.txt` for the
 pinned versions.

@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------
+# Continuous integration.
+#
+# Two jobs, kept separate so a lint failure is reported in seconds instead of
+# waiting behind the ~2 minute dependency install:
+#
+#   lint  - ruff check + ruff format --check. Installs only ruff.
+#   test  - the pytest suite.
+#
+# `requires_cache` tests are deselected in CI. They drive verify_readme.py,
+# which re-derives README numbers from the RAVDESS corpus and its 203 MB feature
+# cache - both gitignored, so a fresh checkout cannot build them. Run the full
+# suite locally after:
+#     python scripts/download_dataset.py
+#     python scripts/prepare_data.py
+#
+# `requirements.txt` pins torch/torchaudio to the "+cpu" local versions, which
+# PyPI does not host. The extra index below is what makes the resolution
+# succeed without pulling ~2.5 GB of CUDA libraries onto a CPU-only runner.
+# ---------------------------------------------------------------------------
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A superseded run on the same ref is cancelled rather than left racing.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: python -m pip install ruff==0.16.10
+      - name: ruff check
+        run: ruff check .
+      - name: ruff format --check
+        run: ruff format --check .
+
+  test:
+    name: Test (pytest)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Run test suite
+        run: pytest -q -m "not requires_cache"

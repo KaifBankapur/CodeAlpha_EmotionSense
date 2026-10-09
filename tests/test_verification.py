@@ -89,6 +89,7 @@ class TestLiveVerifierWithoutAServer:
 class TestReadmeVerifier:
     """The real check: does the README still describe this repository?"""
 
+    @pytest.mark.requires_cache
     def test_it_passes_against_the_current_document(self, readme_verifier, active_run_dir):
         """Skips when no model is trained, since it re-runs evaluation."""
         if not (MODELS_DIR / "expD_lr2e3_long" / "metrics.json").is_file():
@@ -100,6 +101,7 @@ class TestReadmeVerifier:
         assert code == 0, captured.getvalue()
         assert "README claims verified" in captured.getvalue()
 
+    @pytest.mark.requires_cache
     def test_quiet_hides_failures_but_not_the_summary(self, readme_verifier, monkeypatch):
         """A quiet run still reports the count, so CI logs stay short but truthful."""
         monkeypatch.setattr(readme_verifier, "check", lambda *a, **k: None)
@@ -107,6 +109,7 @@ class TestReadmeVerifier:
             readme_verifier.main(["--quiet"])
         assert "0/0 README claims" in captured.getvalue()
 
+    @pytest.mark.requires_cache
     def test_a_verbose_run_prints_each_failure(self, readme_verifier, monkeypatch):
         monkeypatch.setattr(
             readme_verifier,
@@ -166,11 +169,13 @@ class TestReadmeVerifier:
 class TestVerificationScriptsArentDeadWeight:
     """Guard against the verifiers silently checking nothing."""
 
+    @pytest.mark.requires_cache
     def test_readme_verifier_reports_a_meaningful_number_of_checks(self, readme_verifier):
         with contextlib.redirect_stdout(io.StringIO()):
             readme_verifier.main(["--quiet"])
         assert len(readme_verifier.RESULTS) >= 100
 
+    @pytest.mark.requires_cache
     def test_a_second_run_does_not_inherit_the_first(self, readme_verifier):
         """``main`` is called more than once in this session; results must reset."""
         with contextlib.redirect_stdout(io.StringIO()):
