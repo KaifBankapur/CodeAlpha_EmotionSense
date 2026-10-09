@@ -1,0 +1,102 @@
+{
+  "methodology": "speaker-disjoint: the 24 RAVDESS actors are partitioned into train/val/test and no actor appears in more than one split. Selection used the validation macro-F1; the test split was evaluated once, after model selection was frozen.",
+  "train_actors": [
+    1,
+    2,
+    4,
+    5,
+    7,
+    9,
+    10,
+    12,
+    13,
+    15,
+    16,
+    17,
+    18,
+    20,
+    23,
+    24
+  ],
+  "val_actors": [
+    6,
+    11,
+    19,
+    22
+  ],
+  "test_actors": [
+    3,
+    8,
+    14,
+    21
+  ],
+  "counts": {
+    "train": 960,
+    "val": 240,
+    "test": 240
+  },
+  "speakers_per_split": {
+    "train": [
+      1,
+      2,
+      4,
+      5,
+      7,
+      9,
+      10,
+      12,
+      13,
+      15,
+      16,
+      17,
+      18,
+      20,
+      23,
+      24
+    ],
+    "val": [
+      6,
+      11,
+      19,
+      22
+    ],
+    "test": [
+      3,
+      8,
+      14,
+      21
+    ]
+  },
+  "emotions_per_split": {
+    "train": {
+      "neutral": 64,
+      "calm": 128,
+      "happy": 128,
+      "sad": 128,
+      "angry": 128,
+      "fearful": 128,
+      "disgust": 128,
+      "surprised": 128
+    },
+    "val": {
+      "neutral": 16,
+      "calm": 32,
+      "happy": 32,
+      "sad": 32,
+      "angry": 32,
+      "fearful": 32,
+      "disgust": 32,
+      "surprised": 32
+    },
+    "test": {
+      "neutral": 16,
+      "calm": 32,
+      "happy": 32,
+      "sad": 32,
+      "angry": 32,
+      "fearful": 32,
+      "disgust": 32,
+      "surprised": 32
+    }
+  }
+}

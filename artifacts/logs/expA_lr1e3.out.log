@@ -1,0 +1,95 @@
+====================================================================
+RUN: expA_lr1e3
+====================================================================
+  window       : 3.0s @ 16000 Hz
+  features     : 40 x (mfcc+delta+delta2) = 120 features/frame, cmvn=True
+  conv channels: [32, 64, 128]
+  lstm         : hidden=128, layers=1, bidirectional=True
+  pooling      : attention
+  optimiser    : AdamW lr=0.001 wd=0.0001
+  monitor      : val_macro_f1 (patience 15)
+
+18:18:16 | INFO    | ml.data.loading              | loaded feature cache features_56d041578e27a183: (1440, 120, 301), 120 features x 301 frames
+18:18:16 | INFO    | ml.data.ravdess              | manifest: 1440 samples from E:\emotion recognition from speech\data\raw\RAVDESS
+18:18:16 | INFO    | ml.data.loading              | splits: train=960 val=240 test=240
+18:18:24 | INFO    | trainer                      | run directory: E:\emotion recognition from speech\artifacts\models\expA_lr1e3
+18:18:24 | INFO    | trainer                      | device: cpu   torch threads: 5
+18:18:24 | INFO    | trainer                      | EmotionCNNBiLSTM(input_features=120, conv_channels=[32, 64, 128], lstm_hidden=128 (bidirectional), pooling=attention, classes=8, params=392,168)
+18:18:24 | INFO    | trainer                      | parameter breakdown: {'conv': 92896, 'lstm': 264192, 'pool': 33024, 'classifier': 2056, 'total': 392168}
+18:18:24 | INFO    | trainer                      | class weights: neutral=1.345  calm=0.951  happy=0.951  sad=0.951  angry=0.951  fearful=0.951  disgust=0.951  surprised=0.951
+18:18:24 | INFO    | trainer                      | train=960  val=240  test=240  batch_size=32  max_epochs=60  monitor=val_macro_f1
+18:19:00 | INFO    | trainer                      | epoch   1/60  lr=1.00e-03  train loss=2.1549 acc=0.1344  val loss=2.0208 acc=0.1625 macroF1=0.0696  30.6s  *
+18:19:42 | INFO    | trainer                      | epoch   2/60  lr=1.00e-03  train loss=2.1035 acc=0.1500  val loss=1.9618 acc=0.2125 macroF1=0.1385  41.6s  *
+18:20:25 | INFO    | trainer                      | epoch   3/60  lr=1.00e-03  train loss=2.0400 acc=0.1875  val loss=1.9328 acc=0.2583 macroF1=0.1581  43.6s  *
+18:21:01 | INFO    | trainer                      | epoch   4/60  lr=1.00e-03  train loss=2.0279 acc=0.1885  val loss=1.9105 acc=0.2458 macroF1=0.1163  35.4s
+18:21:36 | INFO    | trainer                      | epoch   5/60  lr=1.00e-03  train loss=1.9859 acc=0.2365  val loss=1.8567 acc=0.2792 macroF1=0.1987  35.0s  *
+18:22:01 | INFO    | trainer                      | epoch   6/60  lr=1.00e-03  train loss=1.9632 acc=0.2531  val loss=1.8594 acc=0.2542 macroF1=0.2086  25.6s  *
+18:22:28 | INFO    | trainer                      | epoch   7/60  lr=1.00e-03  train loss=1.9775 acc=0.2146  val loss=1.8461 acc=0.3375 macroF1=0.2676  26.2s  *
+18:23:02 | INFO    | trainer                      | epoch   8/60  lr=1.00e-03  train loss=1.9306 acc=0.2583  val loss=1.7741 acc=0.3125 macroF1=0.2233  33.8s
+18:23:32 | INFO    | trainer                      | epoch   9/60  lr=1.00e-03  train loss=1.9398 acc=0.2469  val loss=1.7417 acc=0.3583 macroF1=0.3017  30.6s  *
+18:23:58 | INFO    | trainer                      | epoch  10/60  lr=1.00e-03  train loss=1.8929 acc=0.2771  val loss=1.7778 acc=0.3167 macroF1=0.2142  25.9s
+18:24:25 | INFO    | trainer                      | epoch  11/60  lr=1.00e-03  train loss=1.8631 acc=0.2854  val loss=1.6804 acc=0.4250 macroF1=0.3868  26.5s  *
+18:24:45 | INFO    | trainer                      | epoch  12/60  lr=1.00e-03  train loss=1.8340 acc=0.2969  val loss=1.6636 acc=0.3917 macroF1=0.3669  20.8s
+18:25:07 | INFO    | trainer                      | epoch  13/60  lr=1.00e-03  train loss=1.7842 acc=0.3615  val loss=1.6742 acc=0.3500 macroF1=0.3155  21.4s
+18:25:27 | INFO    | trainer                      | epoch  14/60  lr=1.00e-03  train loss=1.7906 acc=0.3271  val loss=1.5705 acc=0.4708 macroF1=0.4466  20.4s  *
+18:25:51 | INFO    | trainer                      | epoch  15/60  lr=1.00e-03  train loss=1.7870 acc=0.3333  val loss=1.5822 acc=0.4042 macroF1=0.3433  23.7s
+18:26:11 | INFO    | trainer                      | epoch  16/60  lr=1.00e-03  train loss=1.7725 acc=0.3458  val loss=1.5720 acc=0.4667 macroF1=0.4112  20.1s
+18:26:35 | INFO    | trainer                      | epoch  17/60  lr=1.00e-03  train loss=1.7470 acc=0.3365  val loss=1.6011 acc=0.4208 macroF1=0.4046  24.1s
+18:26:56 | INFO    | trainer                      | epoch  18/60  lr=1.00e-03  train loss=1.6976 acc=0.3771  val loss=1.5700 acc=0.4542 macroF1=0.4224  20.3s
+18:27:18 | INFO    | trainer                      | epoch  19/60  lr=1.00e-03  train loss=1.6977 acc=0.3698  val loss=1.5670 acc=0.4500 macroF1=0.4166  22.4s
+18:27:40 | INFO    | trainer                      | epoch  20/60  lr=5.00e-04  train loss=1.6854 acc=0.3990  val loss=1.6210 acc=0.4417 macroF1=0.4370  21.4s
+18:28:01 | INFO    | trainer                      | epoch  21/60  lr=5.00e-04  train loss=1.6716 acc=0.3896  val loss=1.4942 acc=0.4833 macroF1=0.4453  21.7s
+18:28:23 | INFO    | trainer                      | epoch  22/60  lr=5.00e-04  train loss=1.6113 acc=0.4219  val loss=1.5029 acc=0.4875 macroF1=0.4494  21.3s  *
+18:28:47 | INFO    | trainer                      | epoch  23/60  lr=5.00e-04  train loss=1.6403 acc=0.4250  val loss=1.4892 acc=0.5000 macroF1=0.4658  24.9s  *
+18:29:09 | INFO    | trainer                      | epoch  24/60  lr=5.00e-04  train loss=1.5986 acc=0.4104  val loss=1.4893 acc=0.5083 macroF1=0.4852  21.1s  *
+18:29:30 | INFO    | trainer                      | epoch  25/60  lr=5.00e-04  train loss=1.6243 acc=0.4146  val loss=1.4587 acc=0.5042 macroF1=0.4681  21.6s
+18:29:54 | INFO    | trainer                      | epoch  26/60  lr=5.00e-04  train loss=1.6021 acc=0.4302  val loss=1.4813 acc=0.5000 macroF1=0.4556  23.3s
+18:30:18 | INFO    | trainer                      | epoch  27/60  lr=5.00e-04  train loss=1.5424 acc=0.4375  val loss=1.4478 acc=0.5333 macroF1=0.5020  24.2s  *
+18:30:40 | INFO    | trainer                      | epoch  28/60  lr=5.00e-04  train loss=1.5934 acc=0.4208  val loss=1.4529 acc=0.5292 macroF1=0.4900  21.9s
+18:31:02 | INFO    | trainer                      | epoch  29/60  lr=5.00e-04  train loss=1.5731 acc=0.4365  val loss=1.5067 acc=0.4917 macroF1=0.4647  21.9s
+18:31:23 | INFO    | trainer                      | epoch  30/60  lr=5.00e-04  train loss=1.5761 acc=0.4437  val loss=1.4149 acc=0.5167 macroF1=0.4766  21.1s
+18:31:44 | INFO    | trainer                      | epoch  31/60  lr=5.00e-04  train loss=1.5725 acc=0.4302  val loss=1.4451 acc=0.5000 macroF1=0.4601  21.3s
+18:32:06 | INFO    | trainer                      | epoch  32/60  lr=5.00e-04  train loss=1.5640 acc=0.4375  val loss=1.4349 acc=0.5125 macroF1=0.4856  21.4s
+18:32:31 | INFO    | trainer                      | epoch  33/60  lr=5.00e-04  train loss=1.5292 acc=0.4583  val loss=1.4572 acc=0.5375 macroF1=0.5114  24.9s  *
+18:32:55 | INFO    | trainer                      | epoch  34/60  lr=5.00e-04  train loss=1.5470 acc=0.4396  val loss=1.4805 acc=0.5292 macroF1=0.5055  23.9s
+18:33:16 | INFO    | trainer                      | epoch  35/60  lr=5.00e-04  train loss=1.5100 acc=0.4771  val loss=1.4337 acc=0.5625 macroF1=0.5433  21.4s  *
+18:33:38 | INFO    | trainer                      | epoch  36/60  lr=5.00e-04  train loss=1.5304 acc=0.4469  val loss=1.4575 acc=0.5083 macroF1=0.4845  22.5s
+18:34:01 | INFO    | trainer                      | epoch  37/60  lr=5.00e-04  train loss=1.5583 acc=0.4469  val loss=1.4273 acc=0.5333 macroF1=0.5174  22.6s
+18:34:22 | INFO    | trainer                      | epoch  38/60  lr=5.00e-04  train loss=1.4999 acc=0.4615  val loss=1.4468 acc=0.5250 macroF1=0.5025  20.8s
+18:34:44 | INFO    | trainer                      | epoch  39/60  lr=5.00e-04  train loss=1.5021 acc=0.4781  val loss=1.4286 acc=0.5333 macroF1=0.5114  22.0s
+18:35:05 | INFO    | trainer                      | epoch  40/60  lr=5.00e-04  train loss=1.4871 acc=0.4958  val loss=1.4416 acc=0.5333 macroF1=0.5065  21.0s
+18:35:27 | INFO    | trainer                      | epoch  41/60  lr=2.50e-04  train loss=1.4976 acc=0.4708  val loss=1.3785 acc=0.5458 macroF1=0.5156  21.9s
+18:35:47 | INFO    | trainer                      | epoch  42/60  lr=2.50e-04  train loss=1.4554 acc=0.4708  val loss=1.4731 acc=0.5542 macroF1=0.5234  20.2s
+18:36:08 | INFO    | trainer                      | epoch  43/60  lr=2.50e-04  train loss=1.4535 acc=0.4854  val loss=1.4121 acc=0.5417 macroF1=0.5205  21.1s
+18:36:29 | INFO    | trainer                      | epoch  44/60  lr=2.50e-04  train loss=1.4530 acc=0.5000  val loss=1.3824 acc=0.5417 macroF1=0.5128  20.4s
+18:36:51 | INFO    | trainer                      | epoch  45/60  lr=2.50e-04  train loss=1.4289 acc=0.5021  val loss=1.4148 acc=0.5458 macroF1=0.5164  22.6s
+18:37:13 | INFO    | trainer                      | epoch  46/60  lr=2.50e-04  train loss=1.4444 acc=0.4823  val loss=1.4108 acc=0.5542 macroF1=0.5352  21.4s
+18:37:36 | INFO    | trainer                      | epoch  47/60  lr=1.25e-04  train loss=1.4365 acc=0.5010  val loss=1.4135 acc=0.5625 macroF1=0.5428  23.0s
+18:37:58 | INFO    | trainer                      | epoch  48/60  lr=1.25e-04  train loss=1.4228 acc=0.4917  val loss=1.3914 acc=0.5708 macroF1=0.5522  21.9s  *
+18:38:20 | INFO    | trainer                      | epoch  49/60  lr=1.25e-04  train loss=1.4222 acc=0.4885  val loss=1.3779 acc=0.5667 macroF1=0.5463  22.1s
+18:38:40 | INFO    | trainer                      | epoch  50/60  lr=1.25e-04  train loss=1.4328 acc=0.5062  val loss=1.3686 acc=0.5833 macroF1=0.5675  20.2s  *
+18:39:02 | INFO    | trainer                      | epoch  51/60  lr=1.25e-04  train loss=1.4146 acc=0.5000  val loss=1.4017 acc=0.5792 macroF1=0.5596  21.6s
+18:39:22 | INFO    | trainer                      | epoch  52/60  lr=1.25e-04  train loss=1.4254 acc=0.5052  val loss=1.4038 acc=0.5625 macroF1=0.5405  20.6s
+18:39:43 | INFO    | trainer                      | epoch  53/60  lr=1.25e-04  train loss=1.4052 acc=0.5208  val loss=1.3913 acc=0.5583 macroF1=0.5441  20.5s
+18:40:06 | INFO    | trainer                      | epoch  54/60  lr=1.25e-04  train loss=1.3933 acc=0.5146  val loss=1.4282 acc=0.5625 macroF1=0.5368  22.7s
+18:40:27 | INFO    | trainer                      | epoch  55/60  lr=1.25e-04  train loss=1.4304 acc=0.4906  val loss=1.3987 acc=0.5583 macroF1=0.5272  21.0s
+18:40:50 | INFO    | trainer                      | epoch  56/60  lr=6.25e-05  train loss=1.4166 acc=0.5094  val loss=1.3839 acc=0.5833 macroF1=0.5648  23.1s
+18:41:10 | INFO    | trainer                      | epoch  57/60  lr=6.25e-05  train loss=1.4096 acc=0.5094  val loss=1.3936 acc=0.5792 macroF1=0.5603  20.1s
+18:41:35 | INFO    | trainer                      | epoch  58/60  lr=6.25e-05  train loss=1.4128 acc=0.5104  val loss=1.3985 acc=0.5667 macroF1=0.5440  25.4s
+18:41:56 | INFO    | trainer                      | epoch  59/60  lr=6.25e-05  train loss=1.3897 acc=0.5208  val loss=1.3876 acc=0.5708 macroF1=0.5531  20.8s
+18:42:18 | INFO    | trainer                      | epoch  60/60  lr=6.25e-05  train loss=1.4434 acc=0.4844  val loss=1.3840 acc=0.5667 macroF1=0.5512  21.9s
+18:42:18 | INFO    | trainer                      | training finished in 1434.0s - best epoch 50, val macro-F1 0.5675
+18:42:18 | INFO    | trainer                      | checkpoint: E:\emotion recognition from speech\artifacts\models\expA_lr1e3\best_model.pt
+
+====================================================================
+TRAINING COMPLETE
+====================================================================
+  run directory      : E:\emotion recognition from speech\artifacts\models\expA_lr1e3
+  best epoch         : 50 / 60 run
+  best val macro-F1  : 56.75%
+  early stopped      : False
+  wall clock         : 1434.0s (23.90s/epoch)
+  parameters         : 392,168
+  device             : cpu
+
+Next:  python scripts/evaluate.py --run expA_lr1e3

@@ -1,0 +1,289 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/geist';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+ * Colour rule
+ * -----------
+ * Exactly one interactive hue (violet) plus neutrals, and a muted categorical
+ * set reserved for the probability bars. That restraint is deliberate: on a
+ * page whose entire job is displaying numbers, the data has to be the most
+ * saturated thing on screen. Eight competing hues would make the chart harder
+ * to read, not easier.
+ *
+ * The shadcn "Nova" preset ships fully monochrome (every token has zero
+ * chroma). These values re-introduce chroma on the primary and the chart ramp.
+ */
+:root {
+  --background: oklch(0.985 0.002 265);
+  --foreground: oklch(0.21 0.02 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.02 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.02 265);
+  --primary: oklch(0.52 0.21 274);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.965 0.004 265);
+  --secondary-foreground: oklch(0.28 0.02 265);
+  --muted: oklch(0.965 0.004 265);
+  --muted-foreground: oklch(0.53 0.017 265);
+  --accent: oklch(0.955 0.012 274);
+  --accent-foreground: oklch(0.4 0.16 274);
+  --destructive: oklch(0.58 0.22 27);
+  --success: oklch(0.6 0.15 155);
+  --warning: oklch(0.7 0.15 70);
+  --border: oklch(0.915 0.006 265);
+  --input: oklch(0.915 0.006 265);
+  --ring: oklch(0.52 0.21 274);
+
+  /* Categorical ramp for the probability bars, ordered by visual weight. */
+  --chart-1: oklch(0.52 0.21 274);
+  --chart-2: oklch(0.6 0.13 220);
+  --chart-3: oklch(0.63 0.12 175);
+  --chart-4: oklch(0.72 0.13 85);
+  --chart-5: oklch(0.58 0.17 25);
+
+  --radius: 0.7rem;
+
+  --sidebar: oklch(0.99 0 0);
+  --sidebar-foreground: oklch(0.21 0.02 265);
+  --sidebar-primary: oklch(0.52 0.21 274);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.965 0.004 265);
+  --sidebar-accent-foreground: oklch(0.28 0.02 265);
+  --sidebar-border: oklch(0.915 0.006 265);
+  --sidebar-ring: oklch(0.52 0.21 274);
+}
+
+.dark {
+  --background: oklch(0.17 0.014 265);
+  --foreground: oklch(0.96 0.004 265);
+  --card: oklch(0.213 0.016 265);
+  --card-foreground: oklch(0.96 0.004 265);
+  --popover: oklch(0.213 0.016 265);
+  --popover-foreground: oklch(0.96 0.004 265);
+  --primary: oklch(0.72 0.16 274);
+  --primary-foreground: oklch(0.18 0.03 274);
+  --secondary: oklch(0.27 0.016 265);
+  --secondary-foreground: oklch(0.96 0.004 265);
+  --muted: oklch(0.27 0.016 265);
+  --muted-foreground: oklch(0.7 0.015 265);
+  --accent: oklch(0.3 0.04 274);
+  --accent-foreground: oklch(0.87 0.08 274);
+  --destructive: oklch(0.68 0.19 25);
+  --success: oklch(0.7 0.15 158);
+  --warning: oklch(0.78 0.14 75);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.72 0.16 274);
+
+  /* Lightened so the bars keep contrast against the dark card surface. */
+  --chart-1: oklch(0.72 0.16 274);
+  --chart-2: oklch(0.72 0.12 220);
+  --chart-3: oklch(0.74 0.11 175);
+  --chart-4: oklch(0.8 0.12 85);
+  --chart-5: oklch(0.7 0.16 25);
+
+  --sidebar: oklch(0.213 0.016 265);
+  --sidebar-foreground: oklch(0.96 0.004 265);
+  --sidebar-primary: oklch(0.72 0.16 274);
+  --sidebar-primary-foreground: oklch(0.18 0.03 274);
+  --sidebar-accent: oklch(0.27 0.016 265);
+  --sidebar-accent-foreground: oklch(0.96 0.004 265);
+  --sidebar-border: oklch(1 0 0 / 11%);
+  --sidebar-ring: oklch(0.72 0.16 274);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    @apply font-sans;
+    scrollbar-gutter: stable;
+  }
+}
+
+/*
+ * Depth and motion
+ * ----------------
+ * Three utilities carry the visual layer. They exist as real classes rather than
+ * long inline `style`/arbitrary-value chains so the design tokens stay the single
+ * source of truth and the theme keeps working without a second code path.
+ */
+
+/*
+ * Translucent panel that picks up whatever is behind it. `color-mix` is used
+ * rather than a fixed rgba so the panel tints correctly in both themes from the
+ * same declaration - a hard-coded white-with-alpha would read as a milky smear
+ * over the dark background instead of dark glass.
+ */
+.glass {
+  background-color: color-mix(in oklab, var(--card) 72%, transparent);
+  border-color: color-mix(in oklab, var(--border) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+
+/* Gradient headline. Decorative only - never used for a data value. */
+.text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--primary) 0%,
+    var(--primary) 30%,
+    var(--chart-2) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  /* Without this, descenders get clipped in some engines when the text is
+     clipped to its own background box. */
+  padding-bottom: 0.08em;
+}
+
+/* Faint engineering grid, to give the aurora some structure to sit on. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--foreground) 7%, transparent) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/*
+ * The drifting colour fields behind the page. Each blob is transformed and
+ * scaled on a long cycle; the offsets are set per-element so they never line up.
+ */
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(5%, -4%, 0) scale(1.09);
+  }
+  66% {
+    transform: translate3d(-4%, 5%, 0) scale(0.94);
+  }
+}
+
+.aurora-blob {
+  animation: aurora-drift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Slow vertical pulse used on the "recording" dot. */
+@keyframes sonar {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.sonar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: sonar 1.8s ease-out infinite;
+}
+
+@layer utilities {
+  /* Tabular figures wherever a number changes in place, so digits do not
+     jitter the layout while a prediction is loading. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Lift a card slightly on hover. Only for pointer devices - on touch this
+     sticks after a tap, which reads as a stuck state. */
+  @media (hover: hover) and (pointer: fine) {
+    .hover-lift {
+      transition:
+        transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 220ms ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 18px 40px -24px color-mix(in oklab, var(--primary) 55%, transparent),
+        0 2px 8px -4px color-mix(in oklab, var(--foreground) 18%, transparent);
+    }
+  }
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

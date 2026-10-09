@@ -1,0 +1,19 @@
+# ---------------------------------------------------------------------------
+# Backend-only dependencies.
+#
+# `backend/` imports `ml` for the predictor, so the ML stack is still required
+# to serve predictions. This file exists for deployment contexts where the split
+# is worth making explicit (a slim API image, a dependency audit, a separate
+# CI job), not to replace requirements.txt.
+#
+#   pip install -r backend/requirements.txt
+# ---------------------------------------------------------------------------
+
+-r ../requirements.txt
+
+# --- Web framework ---------------------------------------------------------
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-multipart==0.0.32

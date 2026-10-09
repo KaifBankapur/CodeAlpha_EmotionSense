@@ -1,0 +1,27 @@
+{
+  "best_epoch": 68,
+  "best_val_macro_f1": 0.594747,
+  "epochs_run": 93,
+  "max_epochs": 140,
+  "early_stopped": true,
+  "complete": true,
+  "total_training_seconds": 1593.9,
+  "seconds_per_epoch_mean": 17.14,
+  "device": "cpu",
+  "torch_threads": 5,
+  "n_parameters": 392168,
+  "n_input_features": 120,
+  "n_train": 960,
+  "n_val": 240,
+  "n_test": 240,
+  "class_weights": [
+    1.3446,
+    0.9508,
+    0.9508,
+    0.9508,
+    0.9508,
+    0.9508,
+    0.9508,
+    0.9508
+  ]
+}

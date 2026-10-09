@@ -1,0 +1,81 @@
+# Project-wide tooling configuration.
+#
+# The ML packages are installed from requirements files rather than as a local
+# editable package, so this file exists for tool configuration only - there is no
+# build backend and no distribution metadata.
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [
+    ".venv",
+    "data",
+    "artifacts",
+    "frontend/node_modules",
+    "frontend/dist",
+]
+
+[tool.ruff.lint]
+# Selected for defect-catching, not coverage. A linter that reports hundreds of
+# findings nobody reads is one that gets switched off; every rule below has
+# caught a real problem in this codebase.
+select = [
+    "E",    # pycodestyle errors
+    "F",    # pyflakes - undefined names, unused imports, the real killers
+    "W",    # pycodestyle warnings
+    "I",    # import sorting
+    "UP",   # pyupgrade
+    "B",    # bugbear - mutable defaults, blind excepts, zip strictness
+    "C4",   # comprehensions
+    "DTZ",  # naive datetimes
+    "SIM",  # simplify
+    "RUF",  # ruff-specific (stale noqa, redundant casts)
+]
+
+ignore = [
+    # Line length is the formatter's job, not the linter's.
+    "E501",
+    # `Optional[X]` reads better than `X | None` in the frozen dataclasses.
+    "UP007",
+    "UP045",
+    # Mutable defaults are intentional and deliberate in the config dataclasses.
+    "B006",
+    # Lambdas are fine for the small sort keys used in metric computation.
+    "E731",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# FastAPI *requires* callables in parameter defaults (`Depends(...)`, `File(...)`)
+# to express dependencies and multipart fields. B008 flags the pattern that
+# makes FastAPI work; flagging it here would be flagging the framework.
+"backend/app/api/routes.py" = ["B008"]
+"backend/app/main.py" = ["B008"]
+
+# Tests assert on raised exception types, unpack fixtures for readability, and
+# compare against literal constants on purpose - that is what an assertion is.
+"tests/*" = ["B011", "B017", "RUF059", "SIM117", "SIM300"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.File", "fastapi.Form"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+# Makes `ml` and `backend` importable without the conftest sys.path dance, so the
+# suite behaves identically under `pytest` and `python -m pytest`.
+pythonpath = ["."]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+    "error",
+    # Third-party deprecation notices we cannot fix from here.
+    "ignore::DeprecationWarning:starlette.*",
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated.*",
+    "ignore::DeprecationWarning:fastapi.*",
+]
+markers = [
+    "slow: long-running checks (full-corpus feature extraction, etc.)",
+]

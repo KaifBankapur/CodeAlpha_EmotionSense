@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Speech Emotion Recognition - upload or record speech and classify the emotion with a trained CNN-BiLSTM model."
+    />
+    <title>Speech Emotion Recognition</title>
+    <script>
+      /*
+       * Apply the stored theme before the first paint.
+       *
+       * Without this the page renders light, React mounts, and only then does
+       * useTheme add `.dark` to <html> - a visible white flash on every reload
+       * for anyone using dark mode. This has to be a blocking inline script in
+       * <head>; deferring it to a module reintroduces the flash.
+       */
+      (function () {
+        try {
+          var stored = localStorage.getItem('ser-theme')
+          var theme =
+            stored === 'light' || stored === 'dark' || stored === 'system'
+              ? stored
+              : 'system'
+          var dark =
+            theme === 'dark' ||
+            (theme === 'system' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+        } catch (e) {
+          /* Storage blocked: fall through to the light default. */
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>This application requires JavaScript to run.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

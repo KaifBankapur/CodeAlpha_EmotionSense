@@ -1,0 +1,99 @@
+{
+  "audio": {
+    "sample_rate": 16000,
+    "mono": true,
+    "trim_top_db": 30.0,
+    "trim_silence": true,
+    "peak_normalize": true,
+    "peak_target": 0.95,
+    "target_duration_sec": 3.0,
+    "min_duration_sec": 0.35,
+    "max_duration_sec": 30.0,
+    "min_rms": 0.0001,
+    "allowed_extensions": [
+      ".wav",
+      ".flac",
+      ".ogg",
+      ".mp3",
+      ".m4a"
+    ],
+    "max_upload_bytes": 20971520
+  },
+  "features": {
+    "n_mfcc": 40,
+    "n_mels": 128,
+    "n_fft": 512,
+    "hop_length": 160,
+    "win_length": 400,
+    "fmin": 0.0,
+    "fmax": 8000.0,
+    "window": "hann",
+    "use_delta": true,
+    "use_delta2": true,
+    "cmvn": true
+  },
+  "model": {
+    "channels": [
+      32,
+      64,
+      128
+    ],
+    "stem_stride": [
+      2,
+      2
+    ],
+    "conv_dropout": 0.15,
+    "head_dropout": 0.3,
+    "lstm_hidden": 128,
+    "lstm_layers": 1,
+    "bidirectional": true,
+    "lstm_dropout": 0.1,
+    "use_attention_pooling": true,
+    "use_batch_norm": true,
+    "num_classes": 8
+  },
+  "train": {
+    "batch_size": 32,
+    "max_epochs": 60,
+    "learning_rate": 0.002,
+    "weight_decay": 0.0001,
+    "grad_clip_norm": 5.0,
+    "label_smoothing": 0.05,
+    "monitor": "val_macro_f1",
+    "monitor_mode": "max",
+    "early_stopping_patience": 15,
+    "lr_scheduler_patience": 5,
+    "lr_scheduler_factor": 0.5,
+    "lr_scheduler_min_lr": 1e-05,
+    "num_threads": 5,
+    "seed": 42,
+    "deterministic": true
+  },
+  "split": {
+    "test_actors": [
+      3,
+      8,
+      14,
+      21
+    ],
+    "val_actors": [
+      6,
+      11,
+      19,
+      22
+    ],
+    "seed": 42
+  },
+  "labels": [
+    "neutral",
+    "calm",
+    "happy",
+    "sad",
+    "angry",
+    "fearful",
+    "disgust",
+    "surprised"
+  ],
+  "dataset": "RAVDESS (Audio_Speech_Actors_01-24)",
+  "notes": "masked attention pooling, lr 2e-3"
+}

@@ -1,0 +1,74 @@
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# ---------------------------------------------------------------------------
+# Datasets (NOT tracked - see README "Dataset" section for download steps)
+# ---------------------------------------------------------------------------
+data/
+*.zip
+*.wav
+*.flac
+*.mp3
+*.m4a
+*.ogg
+
+# ---------------------------------------------------------------------------
+# ML artifacts
+# ---------------------------------------------------------------------------
+# Transient optimizer checkpoints - large and regenerable.
+artifacts/**/last_model.pt
+artifacts/**/checkpoint_*.pt
+# Dev-server logs from local `uvicorn` runs. The per-run training logs under
+# artifacts/logs/ are kept: they are the provenance for the reported metrics.
+artifacts/logs/uvicorn*.log
+# Keep best_model.pt + metrics tracked so inference works from a fresh clone.
+*.npz.tmp
+
+# ---------------------------------------------------------------------------
+# Tooling caches
+# ---------------------------------------------------------------------------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------------------
+# Secrets / local config
+# ---------------------------------------------------------------------------
+.env
+.env.local
+*.pem
+*.key
+
+# ---------------------------------------------------------------------------
+# Frontend
+# ---------------------------------------------------------------------------
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------------------------------------
+# OS noise
+# ---------------------------------------------------------------------------
+Thumbs.db
+.DS_Store
+desktop.ini

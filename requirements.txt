@@ -1,0 +1,49 @@
+# ---------------------------------------------------------------------------
+# Emotion Recognition from Speech - ML and API dependencies.
+#
+# Verified against Python 3.12.10 on Windows. Versions are pinned to the exact
+# releases this project was trained and tested with, because the feature cache
+# fingerprint and the checkpoint format both assume these libraries.
+#
+#   python -m venv .venv
+#   .venv\Scripts\activate          (Windows)
+#   pip install -r requirements.txt
+#
+# CPU-only PyTorch: install from the CPU index to avoid pulling ~2.5 GB of CUDA
+# libraries on a machine with no GPU.
+# ---------------------------------------------------------------------------
+
+# --- Deep learning ---------------------------------------------------------
+# CPU wheels. For a CUDA machine, install from the matching index instead:
+#   pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu124
+torch==2.14.1+cpu
+torchaudio==2.11.0+cpu
+
+# --- Signal processing -----------------------------------------------------
+librosa==1.0.0          # MFCC, resampling, silence trimming
+soundfile==0.14.0       # WAV/FLAC/OGG decoding (libsndfile)
+soxr==1.1.0             # high-quality resampling backend used by librosa
+numpy==2.5.3
+scipy==1.18.1
+
+# --- Metrics ---------------------------------------------------------------
+# scikit-learn is the reference implementation for precision/recall/F1: the
+# test suite asserts this project's numbers match sklearn's exactly, rather
+# than matching hand-written expectations.
+scikit-learn==1.9.1
+
+# --- Figures ---------------------------------------------------------------
+matplotlib==3.11.2
+
+# --- API -------------------------------------------------------------------
+fastapi==0.142.2
+uvicorn==0.54.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-multipart==0.0.32   # multipart/form-data, required by POST /predict
+
+# --- Testing and linting ---------------------------------------------------
+pytest==9.1.1
+httpx==0.28.1             # drives fastapi.testclient
+pytest-asyncio==1.4.0
+ruff==0.16.10             # lint + format (see pyproject.toml)

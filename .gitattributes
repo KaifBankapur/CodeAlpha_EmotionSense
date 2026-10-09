@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# Line-ending normalisation.
+#
+# Store text as LF in the repository and let Git check it out natively, so a
+# clone on Windows, macOS or Linux produces identical content as far as the
+# history is concerned. Without this, a Windows checkout rewrites every file
+# and the first commit after any pull shows up as a wall of spurious diffs.
+# ---------------------------------------------------------------------------
+* text=auto
+
+# ---------------------------------------------------------------------------
+# Binary assets: never diff, never normalise.
+# ---------------------------------------------------------------------------
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.pt    binary
+*.pth   binary
+*.npz   binary
+*.npy   binary
+*.zip   binary
+*.pdf   binary
+
+# ---------------------------------------------------------------------------
+# Generated / vendored files: hide from language statistics on GitHub.
+# ---------------------------------------------------------------------------
+frontend/package-lock.json  linguist-generated=true
+artifacts/**                linguist-documentation=true
